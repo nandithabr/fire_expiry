@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Existing Extinguisher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa; /* Light gray background */
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #007bff; /* Blue heading color */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .details-container {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: none; /* Initially hidden */
+        }
+
+        .details-container h2 {
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+
+        .details-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .details-list li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>View Existing Extinguisher</h1>
+        <label for="id">Enter ID:</label>
+        <input type="text" id="id"><br>
+        <label for="location">Location:</label>
+        <input type="text" id="location"><br>
+        <label for="nearby">Nearby Station:</label>
+        <input type="text" id="nearby"><br>
+        <input type="button" class="btn" value="View Details" onclick="showExisting()">
+        <div id="detailsContainer" class="details-container">
+            <h2>Extinguisher Details</h2>
+            <ul id="detailsList" class="details-list">
+                <!-- Details will be dynamically added here -->
+            </ul>
+        </div>
+    </div>
+    <script>
+        function showExisting() {
+            var id = document.getElementById('id').value;
+            var location = document.getElementById('location').value;
+            var nearby = document.getElementById('nearby').value;
+
+            // Example: Fetch details from server based on ID
+            var details = {
+                id: id,
+                expiryDate: '2024-12-31',
+                installationDate: '2020-06-15',
+                refillingDate: '2024-06-01',
+                lastRefilled: '2024-05-25',
+                location: location,
+                nearbyStation: nearby
+            };
+
+            // Display details in the details container
+            var detailsContainer = document.getElementById('detailsContainer');
+            var detailsList = document.getElementById('detailsList');
+            detailsList.innerHTML = ''; // Clear previous details
+
+            var keys = Object.keys(details);
+            keys.forEach(function(key) {
+                var listItem = document.createElement('li');
+                listItem.textContent = key.charAt(0).toUpperCase() + key.slice(1) + ': ' + details[key];
+                detailsList.appendChild(listItem);
+            });
+
+            detailsContainer.style.display = 'block'; // Show details container
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Extinguisher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa; /* Light gray background */
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #007bff; /* Blue heading color */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #495057;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #d4edda; /* Light green background */
+            color: #155724; /* Dark green text color */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Add New Extinguisher</h1>
+        <form id="addForm">
+            <label for="id">ID:</label>
+            <input type="text" id="id" required><br>
+            <label for="expiry">Expiry Date:</label>
+            <input type="date" id="expiry" required><br>
+            <label for="install">Installation Date:</label>
+            <input type="date" id="install" required><br>
+            <label for="refill">Refilling Date:</label>
+            <input type="date" id="refill" required><br>
+            <label for="last">Last Refilled:</label>
+            <input type="date" id="last" required><br>
+            <div class="btn-container">
+                <input type="button" class="btn" value="Add Extinguisher" onclick="addExtinguisher()">
+                <input type="button" class="btn-secondary" value="Cancel">
+            </div>
+        </form>
+        <div id="message" class="message" style="display: none;">Extinguisher added successfully!</div>
+    </div>
+
+    <!-- JavaScript to handle form submission -->
+    <script src="js/scripts.js"></script>
+</body>
+</html>

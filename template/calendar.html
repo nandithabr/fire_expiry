@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fire Extinguisher Calendar</title>
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        #calendar {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .fc-today-event {
+            background-color: red !important;
+            color: white !important;
+        }
+
+        .tooltip {
+            position: absolute;
+            z-index: 9999;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            border-radius: 5px;
+            pointer-events: none;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fire Extinguisher Calendar</h1>
+    <div id="calendar"></div>
+    <div id="tooltip" class="tooltip"></div>
+
+    <!-- JavaScript libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.7/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: [
+                    // Example events data (replace with actual data)
+                    { title: 'Fire extinguisher refill due', start: '2024-05-10', location: 'Building A', nearbyOffice: 'Office A', refillDate: '2024-05-11' },
+                    { title: 'Fire extinguisher inspection', start: '2024-05-15', location: 'Building B', nearbyOffice: 'Office B', refillDate: '2024-05-16' },
+                    { title: 'Immediate action required', start: '2024-05-20', location: 'Building C', nearbyOffice: 'Office C', refillDate: '2024-05-21' }
+                ],
+                eventContent: function(arg) {
+                    var today = dayjs();
+                    var tomorrow = dayjs().add(1, 'day');
+                    var eventStart = dayjs(arg.event.start);
+                    
+                    if (eventStart.isSame(tomorrow, 'day')) {
+                        return {
+                            html: '<b style="color: red;">' + arg.event.title + '</b> (' + arg.event.location + ')'
+                        };
+                    } else {
+                        return {
+                            html: arg.event.title + ' (' + arg.event.location + ')'
+                        };
+                    }
+                },
+                eventClick: function(info) {
+                    showTooltip(info.event);
+                },
+                dayClick: function(info) {
+                    var events = calendar.getEvents();
+                    var date = dayjs(info.date).format('YYYY-MM-DD');
+                    var event = events.find(event => dayjs(event.start).format('YYYY-MM-DD') === date);
+                    if (event) {
+                        showTooltip(event);
+                    }
+                }
+            });
+            calendar.render();
+
+            function showTooltip(event) {
+                var tooltip = document.getElementById('tooltip');
+                tooltip.innerHTML = '<b>Location:</b> ' + event.extendedProps.location + '<br>' +
+                                    '<b>Nearby Office:</b> ' + event.extendedProps.nearbyOffice + '<br>' +
+                                    '<b>Refill Date:</b> ' + event.extendedProps.refillDate;
+                tooltip.style.display = 'block';
+                tooltip.style.left = event.jsEvent.clientX + 'px';
+                tooltip.style.top = event.jsEvent.clientY + 'px';
+            }
+
+            document.addEventListener('mousemove', function(e) {
+                var tooltip = document.getElementById('tooltip');
+                if (tooltip.style.display === 'block') {
+                    tooltip.style.left = e.clientX + 'px';
+                    tooltip.style.top = e.clientY + 'px';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
